@@ -1,15 +1,24 @@
 let calulateTimeInterval =(first,second,interval=10)=>{
   var diff = Math.abs(new Date(`2021/8/9 ${second}`) - new Date(`2021/8/9 ${first}`));
 var minutes = Math.floor((diff/1000)/60);
-console.log(minutes/interval)
+let finalV=minutes/interval
+function isFloat(n) {
+  return Number(n) === n && n % 1 !== 0;
+}
+if(isFloat(finalV)) return false;//it means interval is not  valid
+return(finalV)
 }
 
 let onetime=document.getElementById("onetime")
 let secondtime=document.getElementById("secondtime")
 let btn = document.getElementById("btn")
 btn.addEventListener("click",()=>{
-  console.log(onetime.value.length>3) //check time is given
-  calulateTimeInterval(onetime.value,secondtime.value) //give the time intervals
+  //need initial time final time and interval
+ // console.log(onetime.value.length>3) //check time is given
+ //to get the interval
+ //false if its invalid interval else get the value
+  let intervalT = calulateTimeInterval(onetime.value,secondtime.value,5)
+  console.log(intervalT)//give the time intervals
   
   
   //converts the time to 12hour format
@@ -25,10 +34,3 @@ function tConv24(time24) {
   ts = h + ts.substr(2, 3) + ampm;
   return ts;
 };
-const convertFrom24To12Format = (time24) => {
-  const [sHours, minutes] = time24.match(/([0-9]{1,2}):([0-9]{2})/).slice(1);
-  const period = +sHours < 12 ? 'AM' : 'PM';
-  const hours = +sHours % 12 || 12;
-
-  return `${hours}:${minutes} ${period}`;
-}
